@@ -54,9 +54,12 @@ class PlacesAutocompleteField extends StatefulWidget {
     this.components,
     this.strictbounds,
     this.onChanged,
+    this.onPredictionSelected,
     this.onError,
     this.inputDecoration = const InputDecoration(),
   }) : super(key: key);
+
+  final ValueChanged<Prediction> onPredictionSelected;
 
   /// Controls the text being edited.
   ///
@@ -175,9 +178,12 @@ class _LocationAutocompleteFieldState extends State<PlacesAutocompleteField> {
     Prediction p = await _showAutocomplete();
 
     if (p == null) return;
-    
+
     setState(() {
       _effectiveController.text = p.description;
+      if (widget.onPredictionSelected != null) {
+        widget.onPredictionSelected(p);
+      }
       if (widget.onChanged != null) {
         widget.onChanged(p.description);
       }

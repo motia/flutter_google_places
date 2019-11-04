@@ -64,6 +64,7 @@ class PlacesAutocompleteFormField extends FormField<String> {
     InputDecoration inputDecoration = const InputDecoration(),
     bool autovalidate = false,
     FormFieldSetter<String> onSaved,
+    ValueChanged<Prediction> onPredictionSelected,
     FormFieldValidator<String> validator,
   })  : assert(initialValue == null || controller == null),
         super(
@@ -97,6 +98,7 @@ class PlacesAutocompleteFormField extends FormField<String> {
               mode: mode,
               strictbounds: strictbounds,
               onChanged: state.didChange,
+              onPredictionSelected: onPredictionSelected,
               onError: onError,
             );
           },
